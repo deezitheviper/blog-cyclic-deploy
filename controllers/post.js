@@ -23,10 +23,10 @@ export const getCatPost = async (req, res, next) => {
     const similarPosts = await Post.find({cat:req.params.cat}).sort({_id:-1}).populate({path:'authur',select:['username','profilepic','_id']})
     const limit = 2;
     const startIndex = (Number(page)-1)*limit
-    //const posts = await Post.find({cat:req.params.cat}).sort({_id:-1}).limit(limit).skip(startIndex).populate({path:'authur',select:['username','profilepic','_id']})
+    const posts = await Post.find({cat:req.params.cat}).sort({_id:-1}).limit(limit).skip(startIndex).populate({path:'authur',select:['username','profilepic','_id']})
     //const total = posts.length
     //const totalP = Math.ceil(total/limit)
-    res.status(200).json({similarPosts:similarPosts})
+    res.status(200).json({similarPosts:similarPosts, posts:posts})
     }catch(err){
         next(err)
     }
